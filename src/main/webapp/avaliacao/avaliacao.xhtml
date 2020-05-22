@@ -1,0 +1,142 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="title">Hospital</ui:define>
+
+    <ui:define name="content">
+
+        <h:form id="form">
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12 ui-lg-9">
+                    <!-- Left colum -->
+                    <div class="card card-w-title">
+                        <p:growl autoUpdate="true"/>
+                        <h1>Avaliação do paciente</h1>
+                        <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank grid-pad">
+
+                            <p:outputLabel value="Paciente" for="paciente" />
+                            <p:autoComplete id="paciente" dropdown="true" value="#{avaliacaoController.paciente}" var="paciente"
+                                            itemValue="#{paciente}" itemLabel="#{paciente.nome}"
+                                            converter="pacienteConverter" forceSelection="true"
+                                            completeMethod="#{pacienteController.completePaciente}"
+                                            style="margin-bottom:10px;"/>
+
+                        </p:panelGrid>
+
+                        <!--                        <p:accordionPanel id="acordion" multiple="false">
+                                                    <p:tab title="Hemodinâmicos">
+                                                        <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank grid-pad" style="padding-top: 10px">
+                                                            <h:panelGroup styleClass="md-inputfield">
+                                                                <p:inputText  value="{avaliacaoController.pressaoArterial}">
+                                                                    <f:convertNumber locale="pt_Br" />
+                                                                </p:inputText>
+                                                                <label>Pressão Arterial Média (mmhg)</label>
+                                                            </h:panelGroup>
+                        
+                                                            <h:panelGroup styleClass="md-inputfield">
+                                                                <p:inputText value="{avaliacaoController.frequenciaCardiaca}" />
+                                                                <label>Frequência Cardíaca (bpm)</label>
+                                                            </h:panelGroup>
+                                                        </p:panelGrid>
+                        
+                                                    </p:tab>
+                        
+                                                    <p:tab title="Respiratórios">
+                                                        <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank grid-pad" style="padding-top: 10px">
+                                                            <h:panelGroup styleClass="md-inputfield">
+                                                                <p:inputText value="{avaliacaoController.frequenciaRespiratoria}" />
+                                                                <label>Frequência Respiratória (rpm)</label>
+                                                            </h:panelGroup>
+                        
+                                                            <h:panelGroup>
+                                                                <p:selectBooleanCheckbox value="{avaliacaoController.suporteVentilacao}"/>
+                                                                <p:outputLabel value="Suporte de ventilação mecânica"/>
+                                                            </h:panelGroup>
+                        
+                                                            <h:panelGroup styleClass="md-inputfield">
+                                                                <p:inputText value="#{avaliacaoController.psv}"  />
+                                                                <label>PSV-PS</label>
+                                                            </h:panelGroup>
+                                                            <h:panelGroup styleClass="md-inputfield">
+                                                                <p:inputText value="{avaliacaoController.peep}"  />
+                                                                <label>PEEP</label>
+                                                            </h:panelGroup>
+                                                            <p:outputLabel for="fio2" value="Fio2(%):"/>
+                                                            <p:inputText id="fio2" value="{avaliacaoController.fio2}" readonly="true"/>
+                                                            <p:slider for="fio2" />
+                                                        </p:panelGrid>
+                                                    </p:tab>
+                        
+                                                    <p:tab title="Laboratoriais">
+                                                        <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank grid-pad" style="padding-top: 10px">
+                                                            <h:panelGroup styleClass="md-inputfield">
+                                                                <p:inputText value="{avaliacaoController.hemoglobina}" />
+                                                                <label>Hemoglobina</label>
+                                                            </h:panelGroup>
+                        
+                                                            <h:panelGroup styleClass="md-inputfield">
+                                                                <p:inputText value="{avaliacaoController.lactato}" />
+                                                                <label>Lactato</label>
+                                                            </h:panelGroup>
+                                                            
+                                                            <h:panelGroup styleClass="md-inputfield">
+                                                                <p:inputText value="{avaliacaoController.plaquetas}" />
+                                                                <label>Plaquetas</label>
+                                                            </h:panelGroup>
+                                                        </p:panelGrid>
+                                                    </p:tab>
+                        
+                                                    <p:tab title="Neurológicos">
+                                                        <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank grid-pad" style="padding-top: 10px">
+                                                            <h:panelGroup styleClass="md-inputfield">
+                                                                <p:inputText value="{avaliacaoController.glasgow}" />
+                                                                <label>Glasgow</label>
+                                                            </h:panelGroup>
+                        
+                                                            <h:panelGroup styleClass="md-inputfield">
+                                                                <p:inputText value="{avaliacaoController.rass}" />
+                                                                <label>RASS</label>
+                                                            </h:panelGroup>
+                                                        </p:panelGrid>
+                                                    </p:tab>
+                        
+                                                </p:accordionPanel>-->
+
+                        <p:carousel value="#{carouselView.cars}" headerText="Carousel" numVisible="1" var="car" itemStyleClass="carItem" 
+                                    itemStyle="text-align:center" responsive="true">
+                            <p:panelGrid columns="2" style="width:100%" styleClass="ui-panelgrid-blank ui-car-display">
+                                <h:outputText value="Id:" />
+                                <h:outputText value="#{car.id}" />
+
+                                <h:outputText value="Year" />
+                                <h:outputText value="#{car.year}" />
+
+                                <h:outputText value="Color:" />
+                                <h:outputText value="#{car.color}"/>
+
+                                <h:outputText value="Price" />
+                                <h:outputText value="R$ #{car.price}" />
+                            </p:panelGrid>
+
+                            <f:facet name="footer">
+                                Carousel Footer
+                            </f:facet>
+                        </p:carousel>
+                        <p:commandButton value="Salvar" icon="fa fa-save" action="{avaliacaoController.salvar()}" styleClass="blue-grey-btn" style="margin-top:10px;" update="resultado"/>
+                    </div>
+                    <h:outputText id="resultado" value="{avaliacaoController.resultado}" />
+                </div>
+                <div class="ui-g-12 ui-lg-6">
+                    <!-- Right colum -->
+
+                </div>
+            </div>
+
+        </h:form>    
+    </ui:define>
+
+</ui:composition>
